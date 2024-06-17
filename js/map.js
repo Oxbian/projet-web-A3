@@ -32,7 +32,7 @@ Plotly.d3.csv('http://etu0123.projets.isen-ouest.fr/myProject/projet-web-A3/asse
     var layout = {
         title: 'Carte de la répartition des arbres de la ville de Saint-Quentin',
         font: {
-            color: 'red'
+            color: 'white'
         },
         dragmode: 'zoom',
         mapbox: {
@@ -54,10 +54,14 @@ Plotly.d3.csv('http://etu0123.projets.isen-ouest.fr/myProject/projet-web-A3/asse
             l: 10,
             pad: 0
         },
-        paper_bgcolor: 'red',
-        plot_bgcolor: 'red',
+        paper_bgcolor: 'paper',
+        plot_bgcolor: 'paper',
         showlegend: true,
     };
+
+    Plotly.setPlotConfig({
+        mapboxAccessToken: "hEKrgaascDk1ueaDz1py"
+      });
 
     Plotly.newPlot('map', data, layout);
 });
