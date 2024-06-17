@@ -13,7 +13,7 @@ Plotly.d3.csv('http://etu0123.projets.isen-ouest.fr/myProject/projet-web-A3/asse
     var classes = [...new Set(classArray)];
 
     function unpack(rows, key) {
-        console.log("tout est good x2")
+        console.log("tout est good x20")
         return rows.map(function (row) { return row[key]; });
     }
 
