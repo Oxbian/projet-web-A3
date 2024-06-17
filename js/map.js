@@ -1,5 +1,64 @@
 "use strict";
 
+"use strict";
+
+// Initialize the MapLibre map
+const map = new maplibregl.Map({
+    container: 'map', // Container ID
+    style: 'https://demotiles.maplibre.org/style.json', // Style URL
+    center: [3.2876843, 49.8465253], // Initial map center in [lon, lat]
+    zoom: 12 // Initial zoom level
+});
+
+// Load the CSV data using D3
+d3.csv('http://etu0123.projets.isen-ouest.fr/myProject/projet-web-A3/assets/Data_Arbre.csv').then(function(rows) {
+    console.log("CSV file loaded successfully", rows);
+
+    // Convert the rows into GeoJSON features
+    const features = rows.map(function(row) {
+        return {
+            type: 'Feature',
+            geometry: {
+                type: 'Point',
+                coordinates: [parseFloat(row.reclong), parseFloat(row.reclat)]
+            },
+            properties: {
+                class: row.class
+            }
+        };
+    });
+
+    const geojson = {
+        type: 'FeatureCollection',
+        features: features
+    };
+
+    // Add the GeoJSON data as a source
+    map.on('load', function() {
+        map.addSource('trees', {
+            type: 'geojson',
+            data: geojson
+        });
+
+        // Add a layer to display the points
+        map.addLayer({
+            id: 'trees',
+            type: 'circle',
+            source: 'trees',
+            paint: {
+                'circle-radius': 5,
+                'circle-color': '#FF0000' // Red color
+            }
+        });
+    });
+}).catch(function(error) {
+    console.error('Error loading CSV file:', error);
+});
+
+
+
+
+/*
 Plotly.d3.csv('http://etu0123.projets.isen-ouest.fr/myProject/projet-web-A3/assets/Data_Arbre.csv', function (err, rows) {
 
     if (err) {
@@ -65,3 +124,4 @@ Plotly.d3.csv('http://etu0123.projets.isen-ouest.fr/myProject/projet-web-A3/asse
 
     Plotly.newPlot('map', data, layout);
 });
+*/
