@@ -32,10 +32,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 name: classe,
                 lat: unpack(rowsFiltered, 'latitude'),
                 lon: unpack(rowsFiltered, 'longitude'),
+                quartier: unpack(rowsFiltered, 'clc_quartier'),
+                nom: unpack(rowsFiltered, 'fk_nomtech'),
+                etat_arbre: unpack(rowsFiltered, 'fk_arb_etat'),
+                
                 marker: {
                     color: 'green',
                     size: 10,
-                    symbol: 'marker'
+                    symbol: 'url(https://cdn1.iconfinder.com/data/icons/map-objects/154/map-object-tree-park-forest-point-place-512.png)'
                 }
             };
         });
@@ -59,15 +63,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 zoom: 12
             },
             margin: {
-                r: 20,
-                t: 40,
-                b: 20,
-                l: 20,
+                r: 10,
+                t: 60,
+                b: 10,
+                l: 10,
                 pad: 0
             },
             paper_bgcolor: 'black',
             plot_bgcolor: 'black',
-            showlegend: true,
+            showlegend: false,
         };
 
         Plotly.setPlotConfig({
