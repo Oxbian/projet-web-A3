@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 marker: {
                     color: 'green',
                     size: 10,
-                    symbol: 'marker'
                 },
 
                 //text: 
