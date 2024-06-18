@@ -27,23 +27,29 @@ document.addEventListener('DOMContentLoaded', function () {
             var rowsFiltered = rows.filter(function (row) {
                 return (row.class === classe);
             });
+
+            var latitudes = unpack(rowsFiltered, 'latitude');
+            var longitudes = unpack(rowsFiltered, 'longitude');
+            var quartiers = unpack(rowsFiltered, 'clc_quartier');
+            var noms = unpack(rowsFiltered, 'fk_nomtech');
+            var etat_arbres = unpack(rowsFiltered, 'fk_arb_etat');
+
+            var texts = quartiers.map((quartier, index) => 
+                `Nom: ${noms[index]}<br>Quartier: ${quartier}<br>Etat: ${etat_arbres[index]}`
+            );
+
             return {
                 type: 'scattermapbox',
                 name: classe,
-                lat: unpack(rowsFiltered, 'latitude'),
-                lon: unpack(rowsFiltered, 'longitude'),
-                quartier: unpack(rowsFiltered, 'clc_quartier'),
-                nom: unpack(rowsFiltered, 'fk_nomtech'),
-                etat_arbre: unpack(rowsFiltered, 'fk_arb_etat'),
-
-                mode:'markers',
-                
+                lat: latitudes,
+                lon: longitudes,
+                mode: 'markers',
                 marker: {
-                    color: 'green',
-                    size: 10,
+                    size: 20,
+                    color: 'green'
                 },
-
-                text:[nom, quartier, etat_arbre] 
+                text: texts,
+                hoverinfo: 'text'
             };
         });
 
