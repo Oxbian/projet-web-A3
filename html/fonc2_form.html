@@ -6,95 +6,152 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajout d'un arbre</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
     <header>
-        <h1>Ajout d'un arbre au patrimoine</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="fonc2_form.html">Ajouter un arbre</a></li>
-                <li><a href="fonc3_map.html">Visualisation</a></li>
-                <li><a href="fonc4_pred_clusters.html">Prédiction des clusters</a></li>
-                <li><a href="fonc5_pred_age.html">Prédiction de l'âge/déracinement</a></li>
-            </ul>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="../assets/Giga.png" alt="Logo" height="40">
+                </a>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="fonc2_form.html">Nouvel arbre</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="fonc3_map.html">Visualisation</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
     </header>
-    <main>
-        <section>
-            <h2>Formulaire d'ajout d'un arbre</h2>
+    <main class="d-flex align-items-center justify-content-center bg" style="background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url('../assets/bg_add.png');">
+        <section class="w-75 p-4 bg-light rounded shadow">
+            <h2 class="text-center mb-4">Formulaire d'ajout d'un arbre</h2>
+
             <form action="../php/ajout_arbre.php" method="post">
 
-                <label for="espece">Espèce :</label>
-                <input type="text" id="espece" name="espece" required><br>
-
-                <label for="hauteur_totale">Hauteur totale :</label>
-                <input type="number" id="hauteur_totale" name="hauteur_totale" required><br>
-
-                <label for="hauteur_tronc">Hauteur du tronc :</label>
-                <input type="number" id="hauteur_tronc" name="hauteur_tronc" required><br>
-
-                <label for="diametre_tronc">Diamètre du tronc :</label>
-                <input type="number" id="diametre_tronc" name="diametre_tronc" required><br>
-
-                <label for="latitude">Latitude :</label>
-                <input type="number" step="any" id="latitude" name="latitude" required><br>
-
-                <label for="longitude">Longitude : #TODO déterminer le quartier + secteur en fonction des
-                    coordonnées</label>
-                <input type="number" step="any" id="longitude" name="longitude" required><br>
-
-                <label for="secteur">Secteur :</label>
-                <select id="secteur" name="secteur">
-                    <option value="">#TODO en php</option>
-                </select><br>   
-
-                <label for="etat">État :</label>
-                <select id="etat" name="etat">
-                    <option value="">#TODO en php</option>
-                </select><br>
-
-                <label for="stade">Stade de développement :</label>
-                <select id="stade" name="stade">
-                    <option value="">#TODO en php</option>
-                </select><br>
-
-                <label for="prec_age_estim">Précédent âge estimé : </label>
-                <input type="number" step="any" id="prec_age_estim" name="prec_age_estim" required><br>
-
-                <label for="nb_align">Nombre d'arbre dans l'alignement : </label>
-                <input type="number" step="any" id="nb_align" name="nb_align" required><br>
-
-                <label for="port">Type de port :</label>
-                <select id="port" name="port">
-                    <option value="">#TODO en php</option>
-                </select><br>   
-                
-                <label for="pied">Type de pied :</label>
-                <select id="pied" name="pied">
-                    <option value="">#TODO en php</option>
-                </select><br> 
-
-                <label for="pied">Remarquabilité de l'arbre :</label>
-                <div>
-                    <input type="radio" id="huey" name="drone" value="huey" checked />
-                    <label for="huey">OUI</label>
-                  </div>
-                
-                  <div>
-                    <input type="radio" id="dewey" name="drone" value="dewey" />
-                    <label for="dewey">NON</label>
-                  </div>
+                <div class="mb-3">
+                    <label for="espece" class="form-label">Espèce :</label>
+                    <input type="text" class="form-control" id="espece" name="espece" placeholder="Espèce" required>
                 </div>
 
-                <button type="submit">Ajouter</button>
+                <div class="mb-3">
+                    <label for="etat" class="form-label">État :</label>
+                    <select id="etat" class="form-select" name="etat">
+                        <option value="">#TODO en php</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="secteur" class="form-label">Secteur :</label>
+                    <select id="secteur" class="form-select" name="secteur">
+                        <option value="">#TODO en php</option>
+                    </select>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="hauteur_totale" class="form-label">Hauteur totale :</label>
+                        <input type="number" class="form-control" id="hauteur_totale" name="hauteur_totale"
+                            placeholder="Ex : 5 (en mètres)">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="hauteur_tronc" class="form-label">Hauteur du tronc :</label>
+                        <input type="number" class="form-control" id="hauteur_tronc" name="hauteur_tronc"
+                            placeholder="Ex : 3 (en mètres)">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="diametre_tronc" class="form-label">Diamètre du tronc :</label>
+                        <input type="number" class="form-control" id="diametre_tronc" name="diametre_tronc"
+                            placeholder="Ex : 15 (en centimètres)">
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md-6">
+                        <label for="latitude" class="form-label">Latitude :</label>
+                        <input type="number" class="form-control" step="any" id="latitude" name="latitude"
+                            placeholder="Ex : 49.8465253">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="longitude" class="form-label">Longitude :</label>
+                        <input type="number" class="form-control" step="any" id="longitude" name="longitude"
+                            placeholder="Ex : 3.2876843">
+                    </div>
+                </div>
+
+                <div class="row g-3 mt-3">
+                    <div class="col-md-6">
+                        <label for="stade" class="form-label">Stade de développement :</label>
+                        <select id="stade" class="form-select" name="stade">
+                            <option value="">#TODO en php</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="prec_age_estim" class="form-label">Précédent âge estimé :</label>
+                        <input type="number" class="form-control" step="any" id="prec_age_estim" name="prec_age_estim" placeholder="Ex : 15 (en années)"
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nb_align" class="form-label">Nombre d'arbre dans l'alignement :</label>
+                        <input type="number" class="form-control" step="any" id="nb_align" name="nb_align" placeholder="Ex : 8 (en années)" required>
+                    </div>
+                    <div class="row g-2">
+                    <div class="col-md-6">
+                        <label for="port" class="form-label">Type de port :</label>
+                        <select id="port" class="form-select" name="port">
+                            <option value="">#TODO en php</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="pied" class="form-label">Type de pied :</label>
+                        <select id="pied" class="form-select" name="pied">
+                            <option value="">#TODO en php</option>
+                        </select>
+                    </div>
+                </div>
+                </div>
+
+                <div class="mt-3">
+                    <label class="form-label">Remarquabilité de l'arbre :</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="oui" name="remarquabilite" value="oui" checked>
+                        <label class="form-check-label" for="oui">OUI</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="non" name="remarquabilite" value="non">
+                        <label class="form-check-label" for="non">NON</label>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-dark">Ajouter</button>
+                </div>
             </form>
         </section>
     </main>
     <footer>
-        <p>&copy; 2024 Gestion du patrimoine arboré - Trinome 1 - PORCHER | POURCHASSE | ROUILLÉ</p>
+        <p>&copy; 2024 Gestion du patrimoine arboré - Trinome 1 - Giga Ligma Corp. - PORCHER | POURCHASSE | ROUILLÉ</p>
     </footer>
 </body>
 
