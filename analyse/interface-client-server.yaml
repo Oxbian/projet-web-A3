@@ -26,7 +26,6 @@ paths:
       tags:
         - user
       summary: Connecte l'utilisateur
-      description: ''
       responses:
         '200':
           description: Connexion réussite
@@ -34,26 +33,37 @@ paths:
           description: Mauvaise requête
         '404':
           description: Utilisateur non trouvé
-  /php/request.php/user/logout:
-    get:
+  /php/request.php/user:
+    post:
       tags:
         - user
-      summary: Déconnecte l'utilisateur
-      description: ''
+      summary: Créer un nouvel utilisateur
+      parameters:
+        - name: username
+          in: query
+          required: true
+          description: Identifiant de l'utilisateur
+          schema:
+            type: string
+        - name: password
+          in: query
+          required: true
+          description: Mot de passe de l'utilisateur
+          schema:
+            type: string
       responses:
-        '200':
-          description: Déconnexion réussite
+        '204':
+          description: Création réussite
         '400':
           description: Mauvaise requête
-  /php/request.php/user:
     put:
       tags:
         - user
       summary: Met à jour les informations de l'utilisateur
       description: Seulement pour l'utilisateur authentifié
       responses:
-        '200':
-          description: Connexion réussite
+        '204':
+          description: Modification réussite
         '400':
           description: Mauvaise requête
         '401':
@@ -64,7 +74,7 @@ paths:
       summary: Supprime le compte de l'utilisateur
       description: Seulement pour l'utilisateur authentifié
       responses:
-        '200':
+        '204':
           description: Suppression réussite
         '400':
           description: Mauvaise requête
@@ -183,6 +193,8 @@ paths:
           description: Mauvaise requête
         '401':
           description: Non authorisé
+        '409':
+          description: Arbre déjà existant
   /php/request.php/arbre/{id}:
     get:
       tags:
@@ -200,6 +212,50 @@ paths:
           description: Requête réussite
         '400':
           description: Mauvaise requête
+  /php/request.php/arbre/cluster:
+    get:
+      tags:
+        - arbre
+      summary: Retourne la liste des arbres par cluster
+      responses:
+        '200':
+          description: Requête réussite
+        '400':
+          description: Mauvaise requête
+  /php/request.php/arbre/pred-age/{id}:
+    get:
+      tags:
+        - arbre
+      summary: Retourne les informations d'un arbre + la prédiction de son âge
+      parameters:
+        - name: id
+          in: path
+          description: id de l'arbre dont l'âge doit être prédit
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Requête réussite
+        '400':
+          description: Mauvaise requête
+  /php/request.php/arbre/pred-deracinnement/{id}:
+    get:
+      tags:
+        - arbre
+      summary: Retourne les informations d'un arbre + la prédiction de son déracinnement
+      parameters:
+        - name: id
+          in: path
+          description: id de l'arbre dont le déracinnement doit être prédit
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Requête réussite
+        '400':
+          description: Mauvaise requête
   /php/request.php/stadedev:
     get:
       tags:
@@ -208,8 +264,8 @@ paths:
       responses:
         '200':
           description: Requête réussite
-        '400':
-          description: Mauvaise requête
+        '404':
+          description: Éléments non trouvés
   /php/request.php/etat:
     get:
       tags:
@@ -218,8 +274,8 @@ paths:
       responses:
         '200':
           description: Requête réussite
-        '400':
-          description: Mauvaise requête
+        '404':
+          description: Éléments non trouvés
   /php/request.php/secteur:
     get:
       tags:
@@ -228,8 +284,8 @@ paths:
       responses:
         '200':
           description: Requête réussite
-        '400':
-          description: Mauvaise requête
+        '404':
+          description: Éléments non trouvés
   /php/request.php/pied:
     get:
       tags:
@@ -238,8 +294,8 @@ paths:
       responses:
         '200':
           description: Requête réussite
-        '400':
-          description: Mauvaise requête
+        '404':
+          description: Éléments non trouvés
   /php/request.php/port:
     get:
       tags:
@@ -248,8 +304,8 @@ paths:
       responses:
         '200':
           description: Requête réussite
-        '400':
-          description: Mauvaise requête
+        '404':
+          description: Éléments non trouvés
   /php/request.php/espece:
     get:
       tags:
@@ -258,8 +314,8 @@ paths:
       responses:
         '200':
           description: Requête réussite
-        '400':
-          description: Mauvaise requête
+        '404':
+          description: Éléments non trouvés
 servers:
   - url: etu0126.projets.isen-ouest.fr
     variables: {}
