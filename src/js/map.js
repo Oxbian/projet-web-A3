@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     size: 10,
                 },
 
-                //text: 
+                text:[nom, quartier, etat_arbre] 
             };
         });
 
@@ -66,10 +66,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 zoom: 12
             },
             margin: {
-                r: 10,
+                r: 0,
                 t: 60,
-                b: 10,
-                l: 10,
+                b: 0,
+                l: 0,
                 pad: 0
             },
             paper_bgcolor: 'black',
