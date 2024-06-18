@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var etat_arbres = unpack(rowsFiltered, 'fk_arb_etat');
 
             var texts = quartiers.map((quartier, index) => 
-                `Nom: ${noms[index]}<br>Quartier: ${quartier}<br>Etat: ${etat_arbres[index]}`
+                `Lat: ${latitudes[index]}<br> Lon: ${longitudes[index]}<br>Nom: ${noms[index]}<br>Quartier: ${quartier}<br>Etat: ${etat_arbres[index]}`
             );
 
             return {
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 lon: longitudes,
                 mode: 'markers',
                 marker: {
-                    size: 20,
+                    size: 8,
                     color: 'green'
                 },
                 text: texts,
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     y: [0, 1]
                 },
                 style: 'dark',
-                zoom: 12
+                zoom: 13
             },
             margin: {
                 r: 0,
