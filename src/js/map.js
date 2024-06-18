@@ -31,7 +31,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 type: 'scattermapbox',
                 name: classe,
                 lat: unpack(rowsFiltered, 'latitude'),
-                lon: unpack(rowsFiltered, 'longitude')
+                lon: unpack(rowsFiltered, 'longitude'),
+                marker: {
+                    color: 'green',
+                    size: 10,
+                    symbol: 'marker'
+                }
             };
         });
 
@@ -51,13 +56,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     y: [0, 1]
                 },
                 style: 'dark',
-                zoom: 8
+                zoom: 12
             },
             margin: {
-                r: 10,
-                t: 10,
-                b: 10,
-                l: 10,
+                r: 20,
+                t: 40,
+                b: 20,
+                l: 20,
                 pad: 0
             },
             paper_bgcolor: 'black',
@@ -76,132 +81,3 @@ document.addEventListener('DOMContentLoaded', function () {
         return rows.map(function (row) { return row[key]; });
     }
 });
-
-
-
-
-/*document.addEventListener("DOMContentLoaded", function () {
-    console.log("DOM fully loaded and parsed.");
-// Initialize the MapLibre map
-const map = new maplibregl.Map({
-    container: 'map', // container ID
-    style: 'https://demotiles.maplibre.org/style.json', // style URL
-    center: [-98.5795, 39.8283], // starting position [lng, lat]
-    zoom: 4 // starting zoom
-});
-
-// Function to add data points to the map
-function addDataPoints(data) {
-    // Parse CSV data into GeoJSON format
-    const geojson = {
-        type: 'FeatureCollection',
-        features: data.map(row => ({
-            type: 'Feature',
-            geometry: {
-                type: 'Point',
-                coordinates: [parseFloat(row.longitude), parseFloat(row.latitude)]
-            },
-            properties: {
-                title: row.title
-            }
-        }))
-    };
-
-    // Add GeoJSON data source
-    map.addSource('csvData', {
-        type: 'geojson',
-        data: geojson
-    });
-
-    // Add a layer to display the points
-    map.addLayer({
-        id: 'csvDataPoints',
-        type: 'circle',
-        source: 'csvData',
-        paint: {
-            'circle-radius': 5,
-            'circle-color': '#007cbf'
-        }
-    });
-
-    // Add a popup on click
-    map.on('click', 'csvDataPoints', (e) => {
-        const coordinates = e.features[0].geometry.coordinates.slice();
-        const title = e.features[0].properties.title;
-
-        new maplibregl.Popup()
-            .setLngLat(coordinates)
-            .setHTML(`<h3>${title}</h3>`)
-            .addTo(map);
-    });
-}
-
-// Fetch and parse the CSV file
-fetch('http://etu0123.projets.isen-ouest.fr/myProject/projet-web-A3/assets/Data_Arbre.csv')
-    .then(response => response.text())
-    .then(csv => {
-        Papa.parse(csv, {
-            header: true,
-            complete: function(results) {
-                addDataPoints(results.data);
-            }
-        });
-    });
-
-
-
-/*
-    // Initialize the MapLibre map
-    const map = new maplibregl.Map({
-        container: 'map', // Container ID
-        style: 'https://demotiles.maplibre.org/style.json', // Style URL
-        center: [3.2876843, 49.8465253], // Initial map center in [lon, lat]
-        zoom: 8 // Initial zoom level
-    });
-
-    // Load the CSV data using D3
-    d3.csv('../assets/Data_Arbre.csv').then(function (rows) {
-        console.log("CSV file loaded successfully", rows);
-
-        // Convert the rows into GeoJSON features
-        const features = rows.map(function (row) {
-            return {
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [parseFloat(row.reclong), parseFloat(row.reclat)]
-                },
-                properties: {
-                    class: row.class
-                }
-            };
-        });
-
-        const geojson = {
-            type: 'FeatureCollection',
-            features: features
-        };
-
-        // Add the GeoJSON data as a source
-        map.on('load', function () {
-            map.addSource('trees', {
-                type: 'geojson',
-                data: geojson
-            });
-
-            // Add a layer to display the points
-            map.addLayer({
-                id: 'trees',
-                type: 'circle',
-                source: 'trees',
-                paint: {
-                    'circle-radius': 5,
-                    'circle-color': '#FF0000' // Red color
-                }
-            });
-        });
-    }).catch(function (error) {
-        console.error('Error loading CSV file:', error);
-    });
-})
-*/
