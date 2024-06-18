@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 marker: {
                     color: 'green',
                     size: 10,
-                    symbol: 'url(https://cdn1.iconfinder.com/data/icons/map-objects/154/map-object-tree-park-forest-point-place-512.png)'
+                    symbol: 'marker'
                 },
 
                 //text: 
