@@ -6,14 +6,14 @@ require_once('inc/constants.php');
 require_once('inc/data_encode.php');
 
 /**
- * Classe pour gérer les requêtes  à la base de données
+ * Classe pour gérer les requêtes à la base de données
  */
 class Database
 {
 	private PDO $db;
 
 	/**
-	 * Constructeur qui initialise la connexion à la base de données 
+	 * Initialise la connexion à la BDD
 	 *
 	 * @return void
 	 */

@@ -1,6 +1,6 @@
 <?php
 
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 header('Cache-control: no-store, no-cache, must-revalidate');
 header('Pragma: no-cache');
 
@@ -18,6 +18,8 @@ function sendJsonData($data, $code)
 		echo json_encode($data);
 	} else if ($code == 201) {
 		header('HTTP/1.1 201 CREATED');
+	} else if ($code == 204) {
+		header('HTTP/1.1 204 NO CONTENT');
 	}
 	exit;
 }

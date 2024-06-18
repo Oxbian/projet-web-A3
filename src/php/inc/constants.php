@@ -2,6 +2,6 @@
 
 // Constantes de conexión a la base de données
 define('DB_HOST', 'localhost');
-define('DB_USER', 'projetweb');
-define('DB_PASS', 'projetweb');
-define('DB_NAME', 'projet_web');
+define('DB_USER', 'etu0126');
+define('DB_PASS', 'etu0126');
+define('DB_NAME', 'etu0126');

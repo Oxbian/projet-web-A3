@@ -48,18 +48,3 @@ function checkInput($input, $error_code)
 	}
 	return true;
 }
-
-/**
- * Function pour récupérer l'id de la requête
- *
- * @param mixed $request Requête reçu
- * @return String id de la requête
- */
-function getId($request)
-{
-	$id = array_shift($request);
-	if ($id == '') {
-		$id = null;
-	}
-	return $id;
-}

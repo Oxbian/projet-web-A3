@@ -1,53 +1,38 @@
 <?php
 
 require_once('inc/debug.php');
-require_once('inc/data-encode.php');
+require_once('inc/data_encode.php');
 require_once('inc/utilities.php');
-
-// TODO: importer les classes pour les requêtes
+require_once('classes/espece.php');
+require_once('classes/etat.php');
+require_once('classes/secteur.php');
+require_once('classes/stadedev.php');
+require_once('classes/type_pied.php');
+require_once('classes/type_port.php');
+require_once('classes/user.php');
+require_once('classes/arbre.php');
 
 $requestMethod = $_SERVER['REQUEST_METHOD'];
-$request = substr($_SERVER['PATH_INFO'], 1);
+$request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $request = explode('/', $request);
-$requestRessource = array_shift($request);
+
+// Les URL sont formattés de la forme php/request.php/requestRessource..
+$requestRessource = $request[3];
 
 $login = null;
 
 // Vérification de l'utilisateur
-if ($requestRessource == '/user/login') {
-	$db = new User();
-	$username = $_SERVER['PHP_AUTH_USER'];
-	$password = $_SERVER['PHP_AUTH_PW'];
+$db = new User(); // Création de l'objet User qui contient les fonctions pour gérer les utilisateurs
+$headers = getallheaders();
+$token = $headers['Authorization'];
+if (preg_match('/Bearer (.*)/', $token, $tab))
+	$token = $tab[1];
 
-	// Vérification des données envoyées
-	if (!checkInput(isset($username) && isset($password), 400))
-		return;
-
-	// Vérification de l'existence de l'utilisateur
-	if ($db->dbCheckUser($username, $password)) {
-		// Création du token + ajout dans la BDD
-		$token = base64_encode(openssl_random_pseudo_bytes(20));
-		$db->dbAddToken($username, $token);
-		header('Content-Type: application/json; charset=utf-8');
-		header('Cache-control: no-store, no-cache, must-revalidate');
-		header('Pragma: no-cache');
-		echo ($token);
-	} else
-		sendError(401);
-} else {
-	// Vérification de l'utilisateur
-	$db = new User(); // Création de l'objet User qui contient les fonctions pour gérer les utilisateurs
-	$headers = getallheaders();
-	$token = $headers['Authorization'];
-	if (preg_match('/Bearer (.*)/', $token, $tab))
-		$token = $tab[1];
-
-	if ($token != null) {
-		$login = $db->dbVerifyToken($token);
-		// Vérification que l'utilisateur existe
-		if (!$login)
-			$login = null;
-	}
+if ($token != null) {
+	$login = $db->dbVerifyToken($token);
+	// Vérification que l'utilisateur existe
+	if (!$login)
+		$login = null;
 }
 
 // Gestion des requêtes utilisateur
@@ -55,15 +40,39 @@ if ($requestRessource == "user") {
 	$db = new User();
 	switch ($requestMethod) {
 		case 'GET':
-			// Vérífication que l'utilisateur est bien connecté
-			if (!checkVariable($login, 401))
+			// Authentification de l'utilisateur
+			if ($request[4] == 'login') {
+				$username = $_SERVER['PHP_AUTH_USER'];
+				$password = $_SERVER['PHP_AUTH_PW'];
+
+				if (!checkInput(isset($username) && isset($password), 400))
+					break;
+
+				// Vérification de l'existence de l'utilisateur
+				if ($db->dbCheckUser($username, $password)) {
+					// Création du token + ajout dans la BDD
+					$token = base64_encode(openssl_random_pseudo_bytes(20));
+					$data = $db->dbAddToken($username, $token);
+					checkData($data, 200, 404);
+				} else
+					sendError(401);
+			} else {
+				sendError(400);
+			}
+			break;
+
+		case 'POST':
+			if (!checkInput(isset($_POST['username']) && isset($_POST['password']), 400))
 				break;
 
-			if (array_shift($request) == 'logout') {
-				$data = $db->dbDisconnectUser($login);
-				sendJsonData($data, 200);
+			if ($db->dbCheckUsername($_POST['username'])) {
+				sendError(409);
 				break;
 			}
+
+			$data = $db->dbCreateUser($_POST['username'], $_POST['password']);
+			sendJsonData($data, 201);
+			break;
 
 		case 'PUT':
 			// Vérífication que l'utilisateur est bien connecté
@@ -75,8 +84,9 @@ if ($requestRessource == "user") {
 			if (!checkInput(isset($_PUT['password']), 400))
 				break;
 
-			$data = $db->dbUpdatePassword($login, $_PUT['password']);
+			$data = $db->dbUpdateUser($login, $_PUT['password']);
 			sendJsonData($data, 204);
+
 		case 'DELETE':
 			// Vérífication que l'utilisateur est bien connecté
 			if (!checkVariable($login, 401))
@@ -94,13 +104,18 @@ if ($requestRessource == "user") {
 	}
 }
 
-// Gestion des requêtes arbre
 if ($requestRessource == "arbre") {
 	$db = new Arbre();
+
+	var_dump($requestRessource);
+
 	switch ($requestMethod) {
 		case 'GET':
-			// Récupération de l'id
-			$path = array_shift($request);
+			// Suite de la requête ou id de l'arbre
+			if (isset($request[4]))
+				$path = $request[4];
+			else
+				$path = null;
 
 			// Vérification des infos à récupérer
 			if ($path == 'cluster') {
@@ -109,10 +124,10 @@ if ($requestRessource == "arbre") {
 				// Prédire l'âge de l'arbre
 			} elseif ($path == 'pred-deracinnement') {
 				// Prédire le déracinnement de l'arbre
-			} elseif ($path != null && $path != '') {
+			} elseif ($path != null) {
 				$id = $path;
 				$data = $db->dbInfoArbre($id);
-			} else
+			} elseif ($path == null)
 				$data = $db->dbGetArbres();
 
 			// Vérification des infos
@@ -124,23 +139,24 @@ if ($requestRessource == "arbre") {
 			if (!checkVariable($login, 401))
 				break;
 
-			if (
+			if (!checkVariable(
 				isset($_POST['longitude']) && isset($_POST['latitude']) && isset($_POST['haut_tot'])
-				&& isset($_POST['haut_tronc']) && isset($_POST['tronc_diam']) && isset($_POST['prec_estim'])
-				&& isset($_POST['nbr_diag']) && isset($_POST['remarquable']) && isset($_POST['fk_espece'])
-				&& isset($_POST['fk_port']) && isset($_POST['fk_pied']) && isset($_POST['fk_secteur'])
-				&& isset($_POST['fk_etat']) && isset($_POST['fk_stadedev']) && isset($_POST['username'])
-			) {
-				// Vérificatin si l'arbre existe déjà
-				if ($db->dbCheckArbre($_POST['longitude'], $_POST['latitude'], $_POST['haut_tot'], $_POST['haut_tronc'], $_POST['tronc_diam'], $_POST['prec_estim'], $_POST['nbr_diag'], $_POST['remarquable'], $_POST['fk_espece'], $_POST['fk_port'], $_POST['fk_pied'], $_POST['fk_secteur'], $_POST['fk_etat'], $_POST['fk_stadedev'], $_POST['username'])) {
-					sendError(409);
-					break;
-				}
+					&& isset($_POST['haut_tronc']) && isset($_POST['tronc_diam']) && isset($_POST['prec_estim'])
+					&& isset($_POST['nbr_diag']) && isset($_POST['remarquable']) && isset($_POST['fk_espece'])
+					&& isset($_POST['fk_port']) && isset($_POST['fk_pied']) && isset($_POST['fk_secteur'])
+					&& isset($_POST['fk_etat']) && isset($_POST['fk_stadedev']) && isset($_POST['username']),
+				400
+			))
+				break;
 
-				$data = $db->dbAddArbre($_POST['longitude'], $_POST['latitude'], $_POST['haut_tot'], $_POST['haut_tronc'], $_POST['tronc_diam'], $_POST['prec_estim'], $_POST['nbr_diag'], $_POST['remarquable'], $_POST['fk_espece'], $_POST['fk_port'], $_POST['fk_pied'], $_POST['fk_secteur'], $_POST['fk_etat'], $_POST['fk_stadedev'], $_POST['username']);
-				sendJsonData($data, 201);
-			} else
-				sendError(400);
+			// Vérificatin si l'arbre existe déjà
+			if ($db->dbCheckArbre($_POST['longitude'], $_POST['latitude'], $_POST['haut_tot'], $_POST['haut_tronc'], $_POST['tronc_diam'], $_POST['prec_estim'], $_POST['nbr_diag'], $_POST['remarquable'], $_POST['fk_espece'], $_POST['fk_port'], $_POST['fk_pied'], $_POST['fk_secteur'], $_POST['fk_etat'], $_POST['fk_stadedev'], $_POST['username'])) {
+				sendError(409);
+				break;
+			}
+
+			$data = $db->dbAddArbre($_POST['longitude'], $_POST['latitude'], $_POST['haut_tot'], $_POST['haut_tronc'], $_POST['tronc_diam'], $_POST['prec_estim'], $_POST['nbr_diag'], $_POST['remarquable'], $_POST['fk_espece'], $_POST['fk_port'], $_POST['fk_pied'], $_POST['fk_secteur'], $_POST['fk_etat'], $_POST['fk_stadedev'], $_POST['username']);
+			sendJsonData($data, 201);
 			break;
 
 		default:
@@ -150,9 +166,9 @@ if ($requestRessource == "arbre") {
 	}
 }
 
-// Gestion des requêtes stade de développement
 if ($requestRessource == "stadedev") {
 	$db = new Stadedev();
+
 	switch ($requestMethod) {
 		case 'GET':
 			// Vérification des infos à récupérer
@@ -169,9 +185,9 @@ if ($requestRessource == "stadedev") {
 	}
 }
 
-// Gestion des requêtes états de l'arbre
 if ($requestRessource == "etat") {
 	$db = new Etat();
+
 	switch ($requestMethod) {
 		case 'GET':
 			// Vérification des infos à récupérer
@@ -188,9 +204,9 @@ if ($requestRessource == "etat") {
 	}
 }
 
-// Gestion des requêtes secteurs
 if ($requestRessource == "secteur") {
 	$db = new Secteur();
+
 	switch ($requestMethod) {
 		case 'GET':
 			// Vérification des infos à récupérer
@@ -207,13 +223,13 @@ if ($requestRessource == "secteur") {
 	}
 }
 
-// Gestion des requêtes type_pied
 if ($requestRessource == "pied") {
 	$db = new TypePied();
+
 	switch ($requestMethod) {
 		case 'GET':
 			// Vérification des infos à récupérer
-			$data = $db->dbGettypePieds();
+			$data = $db->dbGetTypePieds();
 
 			// Vérification des infos
 			checkData($data, 200, 404);
@@ -226,9 +242,9 @@ if ($requestRessource == "pied") {
 	}
 }
 
-// Gestion des requêtes type_port
 if ($requestRessource == "port") {
 	$db = new TypePort();
+
 	switch ($requestMethod) {
 		case 'GET':
 			// Vérification des infos à récupérer
@@ -245,9 +261,9 @@ if ($requestRessource == "port") {
 	}
 }
 
-// Gestion des requêtes espèces
 if ($requestRessource == "espece") {
 	$db = new Espece();
+
 	switch ($requestMethod) {
 		case 'GET':
 			// Vérification des infos à récupérer
