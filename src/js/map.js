@@ -35,12 +35,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 quartier: unpack(rowsFiltered, 'clc_quartier'),
                 nom: unpack(rowsFiltered, 'fk_nomtech'),
                 etat_arbre: unpack(rowsFiltered, 'fk_arb_etat'),
+
+                mode:'markers',
                 
                 marker: {
                     color: 'green',
                     size: 10,
                     symbol: 'url(https://cdn1.iconfinder.com/data/icons/map-objects/154/map-object-tree-park-forest-point-place-512.png)'
-                }
+                },
+
+                //text: 
             };
         });
 
