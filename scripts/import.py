@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 import mysql.connector
 import argparse
 import json
@@ -19,7 +18,7 @@ def executeRequest(request, value):
 try:
     conn = mysql.connector.connect(
             user="etu0126",
-            password="etu0126",
+            password="kwrmdnou",
             host="localhost",
             port=3306,
             database="etu0126"
