@@ -107,8 +107,6 @@ if ($requestRessource == "user") {
 if ($requestRessource == "arbre") {
 	$db = new Arbre();
 
-	var_dump($requestRessource);
-
 	switch ($requestMethod) {
 		case 'GET':
 			// Suite de la requête ou id de l'arbre
