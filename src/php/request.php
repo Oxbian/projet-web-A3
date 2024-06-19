@@ -1,6 +1,6 @@
 <?php
 
-//require_once('inc/debug.php');
+require_once('inc/debug.php');
 require_once('inc/data_encode.php');
 require_once('inc/utilities.php');
 require_once('classes/espece.php');
@@ -25,7 +25,8 @@ $login = null;
 $db = new User(); // Création de l'objet User qui contient les fonctions pour gérer les utilisateurs
 $headers = getallheaders();
 $token = $headers['Authorization'];
-if (preg_match('/Bearer (.*)/', $token, $tab))
+
+if (isset($token) && preg_match('/Bearer (.*)/', $token, $tab))
 	$token = $tab[1];
 
 if ($token != null) {
@@ -118,10 +119,19 @@ if ($requestRessource == "arbre") {
 			// Vérification des infos à récupérer
 			if ($path == 'cluster') {
 				// Prédire les clusters
+				$data = $db->dbGetClusters();
 			} elseif ($path == 'pred-age') {
 				// Prédire l'âge de l'arbre
+				if (!checkVariable(isset($request[7]), 400))
+					break;
+
+				$data = $db->dbPredAge($request[7]);
 			} elseif ($path == 'pred-deracinnement') {
 				// Prédire le déracinnement de l'arbre
+				if (!checkVariable(isset($request[7]), 400))
+					break;
+
+				$data = $db->dbPredDeracinnement($request[7]);
 			} elseif ($path != null) {
 				$id = $path;
 				$data = $db->dbInfoArbre($id);
