@@ -1,5 +1,12 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 main {
     background-color: #D4D2CB;
+    flex-grow: 1;
 }
 
 .navbar {
@@ -77,4 +84,16 @@ footer {
 
 .btn-two{
     background-color: #F0BE86;
+}
+
+#table-over {
+    max-height: 500px; /* or any height you prefer */
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
 }

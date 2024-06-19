@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 
 		// Envoie les données via une requête POST
-		sendHttpRequest('POST', '../php/ajout_arbre.php/arbre', data, function (error, response) { //#TODO ALBAAAAAAAAAAAAAAAAAAAAAN, LANAAAAAAAAAAAAAAAAAAAAAAA
+		sendHttpRequest('POST', '../php/request.php/arbre', data, function (error, response) { //#TODO ALBAAAAAAAAAAAAAAAAAAAAAN, LANAAAAAAAAAAAAAAAAAAAAAAA
 			if (error) {
 				console.error('Erreur:', error);
 			} else {
