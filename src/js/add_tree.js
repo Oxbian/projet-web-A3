@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    sendHttpRequest('GET', '../php/request.php/arbre', null, function(error, data) {
+    sendHttpRequest('GET', '../php/request.php/etat', null, function(error, data) {
         if (error) {
             //#TODO responses 
             console.error('Erreur:', error);
