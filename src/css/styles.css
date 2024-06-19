@@ -56,5 +56,25 @@ footer {
 }
 
 #map{
-    height: 100%;
+    min-height: 700px;
+}
+
+.login-box{
+    height: 500px;
+}
+
+.button-map * {
+    border-radius: 8px;
+    border: none;
+    padding: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+.btn-one{
+    background-color: #E3CD8B;
+}
+
+.btn-two{
+    background-color: #F0BE86;
 }
