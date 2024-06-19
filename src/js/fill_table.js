@@ -1,3 +1,5 @@
+'use strict';
+
 document.addEventListener('DOMContentLoaded', function() {
     sendHttpRequest('GET', '../php/request.php/arbre', null, function(error, data) {
         if (error) {
