@@ -45,40 +45,61 @@
                             <a class="nav-link" href="fonc3_map.html">Visualisation</a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Connexion</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
     </header>
 
     <main>
-        <section class = "overflow-scroll">
+        <section>
             <h2>Tableau des arbres</h2>
-            <table>
+            <table class="overflow-scroll table table-striped align-items-center justify-content-center">
                 <thead>
                     <tr>
-                        <th>Espèce</th>
-                        <th>Hauteur totale</th>
-                        <th>Hauteur du tronc</th>
-                        <th>Diamètre du tronc</th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
-                        <th>État</th>
-                        <th>Stade</th>
-                        <th>Type de port</th>
-                        <th>Type de pied</th>
+                        <th scope="col">Espèce</th>
+                        <th scope="col">Hauteur totale</th>
+                        <th scope="col">Hauteur du tronc</th>
+                        <th scope="col">Diamètre du tronc</th>
+                        <th scope="col">Latitude</th>
+                        <th scope="col">Longitude</th>
+                        <th scope="col">État</th>
+                        <th scope="col">Stade</th>
+                        <th scope="col">Type de port</th>
+                        <th scope="col">Type de pied</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td> - </td>
+                        <td> - </td>
+                        <td> - </td>
+                        <td> - </td>
+                        <td> - </td>
+                        <td> - </td>
+                        <td> - </td>
+                        <td> - </td>
+                        <td> - </td>
+                        <td> - </td>
+                    </tr>
                     #TODO récupération des donnéesen php
                     <!-- Les données des arbres seront insérées ici dynamiquement -->
                 </tbody>
             </table>
         </section>
         <h2>Carte des arbres</h2>
-        <section id="map">
-            
-            
-        </section>
+        <section id="map"></section>
+
+        <div class="d-flex justify-content-around button-map">
+            <button type="button" class="btn-one"><a href="fonc5_pred_age.html">Prédiction de l'âge et du risque de déracinement lors de tempête</a></button>
+            <button type="button" class="btn-two"><a href="fonc4_pred_clusters.html">Prédiction du cluster des arbres</a></button>
+        </div>
+        <br>
+
     </main>
     <footer>
         <p>&copy; 2024 Gestion du patrimoine arboré - Trinome 1 - Giga Ligma Corp. - PORCHER | POURCHASSE | ROUILLÉ</p>

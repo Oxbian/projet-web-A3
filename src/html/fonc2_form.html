@@ -14,16 +14,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
+        <script src="../js/ajax.js"></script>
+        <script src="../js/add_tree.js"></script>
 </head>
 
 <body>
     <header>
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="#index.html">
                     <img src="../../assets/Giga.png" alt="Logo" height="40">
                 </a>
-                <div class="collapse navbar-collapse">
+                <button class="navbar-toggler ml-auto custom-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#nav-content" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
+                </button>
+                <div class="collapse navbar-collapse" id="nav-content">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link" href="index.html">Accueil</a>
@@ -35,15 +42,21 @@
                             <a class="nav-link" href="fonc3_map.html">Visualisation</a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Connexion</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <main class="d-flex align-items-center justify-content-center bg" style="background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url('../assets/bg_add.png');">
+    <main class="d-flex align-items-center justify-content-center bg"
+        style="background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url('../../assets/bg_add.png');">
         <section class="w-75 p-4 bg-light rounded shadow">
             <h2 class="text-center mb-4">Formulaire d'ajout d'un arbre</h2>
 
-            <form action="../php/ajout_arbre.php" method="post">
+            <form action="../php/request.php" method="post" id="addForm">
 
                 <div class="mb-3">
                     <label for="espece" class="form-label">Espèce :</label>
@@ -107,29 +120,30 @@
 
                     <div class="col-md-6">
                         <label for="prec_age_estim" class="form-label">Précédent âge estimé :</label>
-                        <input type="number" class="form-control" step="any" id="prec_age_estim" name="prec_age_estim" placeholder="Ex : 15 (en années)"
-                            required>
+                        <input type="number" class="form-control" step="any" id="prec_age_estim" name="prec_age_estim"
+                            placeholder="Ex : 15 (en années)" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="nb_align" class="form-label">Nombre d'arbre dans l'alignement :</label>
-                        <input type="number" class="form-control" step="any" id="nb_align" name="nb_align" placeholder="Ex : 8 (en années)" required>
+                        <input type="number" class="form-control" step="any" id="nb_align" name="nb_align"
+                            placeholder="Ex : 8 (en années)" required>
                     </div>
                     <div class="row g-2">
-                    <div class="col-md-6">
-                        <label for="port" class="form-label">Type de port :</label>
-                        <select id="port" class="form-select" name="port">
-                            <option value="">#TODO en php</option>
-                        </select>
-                    </div>
+                        <div class="col-md-6">
+                            <label for="port" class="form-label">Type de port :</label>
+                            <select id="port" class="form-select" name="port">
+                                <option value="">#TODO en php</option>
+                            </select>
+                        </div>
 
-                    <div class="col-md-6">
-                        <label for="pied" class="form-label">Type de pied :</label>
-                        <select id="pied" class="form-select" name="pied">
-                            <option value="">#TODO en php</option>
-                        </select>
+                        <div class="col-md-6">
+                            <label for="pied" class="form-label">Type de pied :</label>
+                            <select id="pied" class="form-select" name="pied">
+                                <option value="">#TODO en php</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
                 </div>
 
                 <div class="mt-3">
