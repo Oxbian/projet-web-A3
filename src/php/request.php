@@ -17,7 +17,7 @@ $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $request = explode('/', $request);
 
 // Les URL sont formattés de la forme php/request.php/requestRessource..
-$requestRessource = $request[3];
+$requestRessource = $request[4];
 
 $login = null;
 
@@ -41,7 +41,7 @@ if ($requestRessource == "user") {
 	switch ($requestMethod) {
 		case 'GET':
 			// Authentification de l'utilisateur
-			if ($request[4] == 'login') {
+			if ($request[5] == 'login') {
 				$username = $_SERVER['PHP_AUTH_USER'];
 				$password = $_SERVER['PHP_AUTH_PW'];
 
@@ -112,8 +112,8 @@ if ($requestRessource == "arbre") {
 	switch ($requestMethod) {
 		case 'GET':
 			// Suite de la requête ou id de l'arbre
-			if (isset($request[4]))
-				$path = $request[4];
+			if (isset($request[5]))
+				$path = $request[5];
 			else
 				$path = null;
 
