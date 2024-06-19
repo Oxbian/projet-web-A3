@@ -10,7 +10,7 @@ require_once('inc/data_encode.php');
  */
 class Database
 {
-	private PDO $db;
+	private $db;
 
 	/**
 	 * Initialise la connexion à la BDD

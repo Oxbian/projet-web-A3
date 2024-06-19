@@ -59,8 +59,16 @@
 	</header>
 
 	<main class="d-flex align-items-center justify-content-center bg"
-		style="background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url('../assets/bg_add.png');">
-		<section class="w-75 p-4 bg-light rounded shadow mb-5">
+		style="background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url('../../assets/bg_add.png');">
+
+		<div class="d-flex justify-content-around button-map">
+            <button type="button" class="btn-one"><a href="fonc5_pred_age.html">Prédiction de l'âge et du risque de
+                    déracinement lors de tempête</a></button>
+            <button type="button" class="btn-two"><a href="fonc4_pred_clusters.html">Prédiction du cluster des
+                    arbres</a></button>
+        </div>
+
+		<section class="w-75 p-4 bg-light rounded shadow mb-5 pred-age">
 			<h2 class="text-center mb-4">Prédiction de l'âge</h2>
 			<form action="predire_age.php" method="post">
 				<div class="mb-3">
@@ -75,7 +83,7 @@
 			</form>
 		</section>
 
-		<section class="w-75 p-4 bg-light rounded shadow">
+		<section class="w-75 p-4 bg-light rounded shadow pred-risque">
 			<h2 class="text-center mb-4">Prédiction du risque de déracinement</h2>
 			<form action="predire_risque.php" method="post">
 				<div class="mb-3">
@@ -93,6 +101,7 @@
 				<button type="submit" class="btn btn-primary">Prédire le risque</button>
 			</form>
 		</section>
+
 	</main>
 
 	<footer class="text-center py-3 bg-dark text-white">
