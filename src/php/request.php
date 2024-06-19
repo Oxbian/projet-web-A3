@@ -1,6 +1,6 @@
 <?php
 
-require_once('inc/debug.php');
+//require_once('inc/debug.php');
 require_once('inc/data_encode.php');
 require_once('inc/utilities.php');
 require_once('classes/espece.php');
