@@ -25,7 +25,7 @@ depuis un fichier csv.
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install json argparse pandas mysql-connector-python
+pip install argparse pandas mysql-connector-python
 ```
 
 Pour utiliser ce script utiliser la commande suivante:

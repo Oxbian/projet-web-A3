@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS user;
 CREATE TABLE user(
         username Varchar (255) NOT NULL ,
         password Varchar (255) NOT NULL ,
-        token    Varchar (20) NOT NULL
+        token    Varchar (20)
 	,CONSTRAINT user_PK PRIMARY KEY (username)
 )ENGINE=InnoDB;
 
