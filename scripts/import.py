@@ -38,7 +38,7 @@ args = parser.parse_args()
 arbre_df = pd.read_csv(args.csv_file)
 
 # Création de l'utilisateur ayant ajouté les arbres
-cursor.executemany("INSERT INTO user (username, password) VALUES (%s, %s)", [("mickael.delaere", "michmich")])
+cursor.executemany("INSERT INTO user (username, password) VALUES (%s, %s)", [("mickael.delaere", "1ef1edbf55183613c71eb63e85c06cfacd20e845165d08254aee49d96090748d")])
 
 # Création des espèces
 especes = [(espece,) for espece in arbre_df['fk_nomtech'].unique()]

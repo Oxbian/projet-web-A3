@@ -12,7 +12,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
 		crossorigin="anonymous"></script>
-		
+
 	<!-- Scripts pour la carte -->
 	<script src="https://cdn.plot.ly/plotly-latest.min.js" defer></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js' defer></script>
@@ -29,6 +29,10 @@
 	<link href='https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css' rel='stylesheet' />
 	<link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
 	<link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
+
+	<!-- Cookies -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"
+		integrity="sha256-oE03O+I6Pzff4fiMqwEGHbdfcW7a3GRRxlL+U49L5sA=" crossorigin="anonymous" defer></script>
 </head>
 
 <body>
@@ -67,43 +71,44 @@
 
 	<main>
 		<section>
-			<br><h2>Tableau des arbres</h2><br>
+			<br>
+			<h2>Tableau des arbres</h2><br>
 			<div class="table-responsive" id="table-over">
-                <table class="table table-striped align-items-center justify-content-center">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Espèce</th>
-                            <th scope="col">Hauteur totale</th>
-                            <th scope="col">Hauteur du tronc</th>
-                            <th scope="col">Diamètre du tronc</th>
-                            <th scope="col">Latitude</th>
-                            <th scope="col">Longitude</th>
-                            <th scope="col">État</th>
-                            <th scope="col">Stade</th>
-                            <th scope="col">Type de port</th>
-                            <th scope="col">Type de pied</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body">
-                        <!-- Les données des arbres seront insérées ici dynamiquement -->
-                    </tbody>
-                </table>
-            </div>
-		<br>
+				<table class="table table-striped align-items-center justify-content-center">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Espèce</th>
+							<th scope="col">Hauteur totale</th>
+							<th scope="col">Hauteur du tronc</th>
+							<th scope="col">Diamètre du tronc</th>
+							<th scope="col">Latitude</th>
+							<th scope="col">Longitude</th>
+							<th scope="col">État</th>
+							<th scope="col">Stade</th>
+							<th scope="col">Type de port</th>
+							<th scope="col">Type de pied</th>
+						</tr>
+					</thead>
+					<tbody id="table-body">
+						<!-- Les données des arbres seront insérées ici dynamiquement -->
+					</tbody>
+				</table>
+			</div>
+			<br>
 		</section>
 
 		<h2>Carte des arbres</h2>
-        <section id="map"></section>
+		<section id="map"></section>
 		<br>
 
-        <div class="d-flex justify-content-around button-map">
-            <button type="button" class="btn-one"><a href="fonc5_pred_age.html">Prédiction de l'âge et du risque de
-                    déracinement lors de tempête</a></button>
-            <button type="button" class="btn-two"><a href="fonc4_pred_clusters.html">Prédiction du cluster des
-                    arbres</a></button>
-        </div>
-        <br>
+		<div class="d-flex justify-content-around button-map">
+			<button type="button" class="btn-one"><a href="fonc5_pred_age.html">Prédiction de l'âge et du risque de
+					déracinement lors de tempête</a></button>
+			<button type="button" class="btn-two"><a href="fonc4_pred_clusters.html">Prédiction du cluster des
+					arbres</a></button>
+		</div>
+		<br>
 
 	</main>
 	<footer class="mt-auto">

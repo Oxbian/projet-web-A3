@@ -50,7 +50,7 @@ class Arbre extends Database
 		else
 			$remarquable = 0;
 
-		$query = 'SELECT * FROM arbre WHERE longitude = :longitude, latitude = :latitude, haut_tot = :haut_tot, haut_tronc = :haut_tronc, tronc_diam = :tronc_diam, prec_estim = :prec_estim, nbr_diag = :nbr_diag, remarquable = :remarquable, fk_espece = :fk_espece, fk_port = :fk_port, fk_pied = :fk_pied, fk_secteur = :fk_secteur, fk_etat = :fk_etat, fk_stadedev = :fk_stadedev, username = :username)';
+		$query = 'SELECT * FROM arbre WHERE longitude = :longitude, latitude = :latitude, haut_tot = :haut_tot, haut_tronc = :haut_tronc, tronc_diam = :tronc_diam, prec_estim = :prec_estim, nbr_diag = :nbr_diag, remarquable = :remarquable, fk_espece = :fk_espece, fk_port = :fk_port, fk_pied = :fk_pied, fk_secteur = :fk_secteur, fk_etat = :fk_etat, fk_stadedev = :fk_stadedev, username = :username';
 		$params = array(
 			'longitude' => $longitude,
 			'latitude' => $latitude,
@@ -58,7 +58,7 @@ class Arbre extends Database
 			'haut_tronc' => $haut_tronc,
 			'tronc_diam' => $tronc_diam,
 			'prec_estim' => $prec_estim,
-			'nbr_estim' => $nbr_diag,
+			'nbr_diag' => $nbr_diag,
 			'remarquable' => $remarquable,
 			'fk_espece' => $fk_espece,
 			'fk_port' => $fk_port,

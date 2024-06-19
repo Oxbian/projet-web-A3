@@ -20,6 +20,10 @@
 	<!-- Scripts de chargement des arbres en AJAX -->
 	<script src="../js/ajax.js" defer></script>
 	<script src="../js/add_tree.js" defer></script>
+
+	<!-- Cookies -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"
+		integrity="sha256-oE03O+I6Pzff4fiMqwEGHbdfcW7a3GRRxlL+U49L5sA=" crossorigin="anonymous" defer></script>
 </head>
 
 <body>
@@ -70,86 +74,84 @@
 			<form action="../php/request.php" method="post" id="addForm">
 
 				<div class="mb-3">
-					<label for="espece" class="form-label">Espèce :</label>
-					<select id="espece" class="form-select" name="espece" required>
-						<option value=""></option>
+					<label for="fk_espece" class="form-label">Espèce :</label>
+					<select id="espece" class="form-select" name="fk_espece" required>
 					</select>
 				</div>
 
 				<div class="mb-3">
-					<label for="etat" class="form-label">État :</label>
-					<select id="etat" class="form-select" name="etat" required>
-						<option value=""></option>
+					<label for="fk_etat" class="form-label">État :</label>
+					<select id="etat" class="form-select" name="fk_etat" required>
 					</select>
 				</div>
 
 				<div class="mb-3">
-					<label for="secteur" class="form-label">Secteur :</label>
-					<select id="secteur" class="form-select" name="secteur">
+					<label for="fk_secteur" class="form-label">Secteur :</label>
+					<select id="secteur" class="form-select" name="fk_secteur" required>
 					</select>
 				</div>
 
 				<div class="row g-3">
 					<div class="col-md-4">
-						<label for="hauteur_totale" class="form-label">Hauteur totale :</label>
-						<input type="number" class="form-control" id="hauteur_totale" name="hauteur_totale"
-							placeholder="Ex : 5 (en mètres)">
+						<label for="haut_tot" class="form-label">Hauteur totale :</label>
+						<input type="number" class="form-control" id="hauteur_totale" name="haut_tot"
+							placeholder="Ex : 5 (en mètres)" min=0 max=999.9 required>
 					</div>
 
 					<div class="col-md-4">
-						<label for="hauteur_tronc" class="form-label">Hauteur du tronc :</label>
-						<input type="number" class="form-control" id="hauteur_tronc" name="hauteur_tronc"
-							placeholder="Ex : 3 (en mètres)">
+						<label for="haut_tronc" class="form-label">Hauteur du tronc :</label>
+						<input type="number" class="form-control" id="hauteur_tronc" name="haut_tronc"
+							placeholder="Ex : 3 (en mètres)" min=0 max=999.9 required>
 					</div>
 
 					<div class="col-md-4">
-						<label for="diametre_tronc" class="form-label">Diamètre du tronc :</label>
-						<input type="number" class="form-control" id="diametre_tronc" name="diametre_tronc"
-							placeholder="Ex : 15 (en centimètres)">
+						<label for="tronc_diam" class="form-label">Diamètre du tronc :</label>
+						<input type="number" class="form-control" id="diametre_tronc" name="tronc_diam"
+							placeholder="Ex : 15 (en centimètres)" min=0 max=999.9 required>
 					</div>
 				</div>
 				<div class="row g-2">
 					<div class="col-md-6">
 						<label for="latitude" class="form-label">Latitude :</label>
 						<input type="number" class="form-control" step="any" id="latitude" name="latitude"
-							placeholder="Ex : 49.8465253">
+							placeholder="Ex : 49.8465253" required>
 					</div>
 
 					<div class="col-md-6">
 						<label for="longitude" class="form-label">Longitude :</label>
 						<input type="number" class="form-control" step="any" id="longitude" name="longitude"
-							placeholder="Ex : 3.2876843">
+							placeholder="Ex : 3.2876843" required>
 					</div>
 				</div>
 
 				<div class="row g-3 mt-3">
 					<div class="col-md-6">
-						<label for="stade" class="form-label">Stade de développement :</label>
-						<select id="stade" class="form-select" name="stade">
+						<label for="fk_stadedev" class="form-label">Stade de développement :</label>
+						<select id="stade" class="form-select" name="fk_stadedev" required>
 						</select>
 					</div>
 
 					<div class="col-md-6">
-						<label for="prec_age_estim" class="form-label">Précédent âge estimé :</label>
-						<input type="number" class="form-control" step="any" id="prec_age_estim" name="prec_age_estim"
-							placeholder="Ex : 15 (en années)" required>
+						<label for="prec_estim" class="form-label">Précédent âge estimé :</label>
+						<input type="number" class="form-control" step="any" id="prec_age_estim" name="prec_estim"
+							placeholder="Ex : 15 (en années)" min=0 max=9999 required>
 					</div>
 
 					<div class="mb-3">
-						<label for="nb_align" class="form-label">Nombre d'arbre dans l'alignement :</label>
-						<input type="number" class="form-control" step="any" id="nb_align" name="nb_align"
-							placeholder="Ex : 8 (en années)" required>
+						<label for="nbr_diag" class="form-label">Nombre d'arbre dans l'alignement :</label>
+						<input type="number" class="form-control" step="any" id="nb_align" name="nbr_diag"
+							placeholder="Ex : 8 (en années)" min=0 max=999 required>
 					</div>
 					<div class="row g-2">
 						<div class="col-md-6">
-							<label for="port" class="form-label">Type de port :</label>
-							<select id="port" class="form-select" name="port">
+							<label for="fk_port" class="form-label">Type de port :</label>
+							<select id="port" class="form-select" name="fk_port" required>
 							</select>
 						</div>
 
 						<div class="col-md-6">
-							<label for="pied" class="form-label">Type de pied :</label>
-							<select id="pied" class="form-select" name="pied">
+							<label for="fk_pied" class="form-label">Type de pied :</label>
+							<select id="pied" class="form-select" name="fk_pied" required>
 							</select>
 						</div>
 					</div>
@@ -158,11 +160,11 @@
 				<div class="mt-3">
 					<label class="form-label">Remarquabilité de l'arbre :</label>
 					<div class="form-check">
-						<input class="form-check-input" type="radio" id="oui" name="remarquabilite" value="oui" checked>
+						<input class="form-check-input" type="radio" id="oui" name="remarquable" value="oui" checked>
 						<label class="form-check-label" for="oui">OUI</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="radio" id="non" name="remarquabilite" value="non">
+						<input class="form-check-input" type="radio" id="non" name="remarquable" value="non">
 						<label class="form-check-label" for="non">NON</label>
 					</div>
 				</div>

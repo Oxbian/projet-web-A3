@@ -10,7 +10,7 @@
  */
 function checkData($data, $success_code, $error_code)
 {
-	if ($data != false) {
+	if ($data != false || $data == '') {
 		sendJsonData($data, $success_code);
 	} else {
 		sendError($error_code);
