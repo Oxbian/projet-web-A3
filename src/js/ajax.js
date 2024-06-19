@@ -22,11 +22,12 @@ function sendHttpRequest(method, url, data, callback) {
     };
     
     // Envoi de la requête
-    if (method === 'POST' || method === 'PUT') {
+    /*if (method === 'POST' || method === 'PUT') {
         xhr.send(JSON.stringify(data));
     } else {
         xhr.send();
-    }
+    }*/
+        xhr.send(JSON.stringify(data));
 }
 
 function httpErrors(errorCode){
