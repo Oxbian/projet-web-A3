@@ -1,7 +1,5 @@
 'use strict';
 
-console.log(localStorage)
-
 function createCell(text) {
     const cell = document.createElement('td');
     cell.textContent = text;
@@ -13,6 +11,67 @@ function createHeaderCell(text) {
     cell.textContent = text;
     cell.setAttribute('scope', 'row');
     return cell;
+}
+
+function displayPredictionAge(data) {
+    const tableBodyPred = document.getElementById('table-body-pred-tech');
+    tableBodyPred.innerHTML = '';
+
+    // Créer une nouvelle ligne de tableau
+    const newRow = document.createElement('tr');
+
+    // Ajouter les cellules à la ligne
+
+    newRow.appendChild(createHeaderCell(data.age_knn));
+    newRow.appendChild(createCell(data.age_svm));
+    newRow.appendChild(createCell(data.age_rf));
+    newRow.appendChild(createCell(data.age_mlp));
+
+    // Ajouter la ligne au corps du tableau
+    tableBodyPred.appendChild(newRow);
+}
+
+function displayPredictionRisk(data) {
+    const tableBodyPred = document.getElementById('table-body-pred-tech');
+    tableBodyPred.innerHTML = '';
+
+    // Créer une nouvelle ligne de tableau
+    const newRow = document.createElement('tr');
+
+    // Ajouter les cellules à la ligne
+
+    newRow.appendChild(createHeaderCell(data.deracinnement_knn));
+    newRow.appendChild(createCell(data.deracinnement_svm));
+    newRow.appendChild(createCell(data.deracinnement_rf));
+    newRow.appendChild(createCell(data.deracinnement_mlp));
+
+    // Ajouter la ligne au corps du tableau
+    tableBodyPred.appendChild(newRow);
+}
+
+function displayArbre(arbre) {
+    const tableBody = document.getElementById('table-body-pred');
+    tableBody.innerHTML = ''; // Vider le tableau existant
+
+        // Créer une nouvelle ligne de tableau
+        const newRow = document.createElement('tr');
+
+        // Ajouter les cellules à la ligne
+
+        newRow.appendChild(createHeaderCell(arbre.id));
+        newRow.appendChild(createCell(arbre.fk_espece));
+        newRow.appendChild(createCell(arbre.haut_tot));
+        newRow.appendChild(createCell(arbre.haut_tronc));
+        newRow.appendChild(createCell(arbre.tronc_diam));
+        newRow.appendChild(createCell(arbre.latitude));
+        newRow.appendChild(createCell(arbre.longitude));
+        newRow.appendChild(createCell(arbre.fk_etat));
+        newRow.appendChild(createCell(arbre.fk_stadedev));
+        newRow.appendChild(createCell(arbre.fk_port));
+        newRow.appendChild(createCell(arbre.fk_pied));
+
+        // Ajouter la ligne au corps du tableau
+        tableBody.appendChild(newRow);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -28,51 +87,47 @@ document.addEventListener('DOMContentLoaded', function () {
     const btnTwo = document.querySelector('.btn-two-pred');
 
     btnOne.addEventListener('click', function () {
+        displayArbre(predictionAge)
         if (predictionAge) {
-            displayPrediction(predictionAge);
+            displayPredictionAge(predictionAge);
         }
     });
 
     btnTwo.addEventListener('click', function () {
         if (predictionRisk) {
-            displayPrediction(predictionRisk);
+            displayPredictionRisk(predictionRisk);
         }
     });
-    /*
-    const mapContainer = document.getElementById('map');
+
+    const mapContainer = document.getElementById('map-tree-age');
     if (!mapContainer) {
         console.error("Map container not found!");
         return;
     }
 
-    var latitude = predictionAge.latitude;
-    var longitude = predictionAge.longitude;
-    var quartier = predictionAge.clc_quartier;
-    var nom = predictionAge.fk_nomtech;
-    var etat_arbre = predictionAge.fk_arb_etat;
+    var latitude = [predictionAge.latitude];    //Même données pour age et risk
+    var longitude = [predictionAge.longitude];
+    var secteur = predictionAge.fk_secteur;
+    var nom = predictionAge.fk_espece;
+    var etat_arbre = predictionAge.fk_etat;
+    var texts = `Lat: ${latitude}<br> Lon: ${longitude}<br>Nom: ${nom}<br>Secteur: ${secteur}<br>Etat: ${etat_arbre}`;
+    console.log(nom)
 
-    var data = (function () {
-        var texts = quartiers.map((quartier, index) =>
-            `Lat: ${latitude}<br> Lon: ${longitude}<br>Nom: ${nom}<br>Quartier: ${quartier}<br>Etat: ${etat_arbre}`
-        );
-
-        return {
-            type: 'scattermapbox',
-            name: classe,
-            lat: latitude,
-            lon: longitude,
-            mode: 'markers',
-            marker: {
-                size: 8,
-                color: 'green'
-            },
-            text: texts,
-            hoverinfo: 'text'
-        };
-    });
+    var data = [{
+        type: 'scattermapbox',
+        lat: latitude,
+        lon: longitude,
+        mode: 'markers',
+        marker: {
+            size: 8,
+            color: 'green'
+        },
+        text: texts,
+        hoverinfo: 'text'
+      }]
 
     var layout = {
-        title: 'Carte de la répartition des arbres de la ville de Saint-Quentin',
+        title: 'Arbre dont l\'âge est prédit',
         font: {
             color: 'white'
         },
@@ -87,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 y: [0, 1]
             },
             style: 'dark',
-            zoom: 13
+            zoom: 12
         },
         margin: {
             r: 0,
@@ -105,62 +160,8 @@ document.addEventListener('DOMContentLoaded', function () {
         mapboxAccessToken: "pk.eyJ1IjoiamVhbi1kZS1jdWxhc3NlIiwiYSI6ImNseGo2Y2VoazFwOHoyanMzdzY5amZmejgifQ.U_ZQY7Mk0VuT-p0YpLGbLA"
     });
 
-    Plotly.newPlot('map-pred-age', data, layout);
-
-
-    function unpack(rows, key) {
-        return rows.map(function (row) { return row[key]; });
-    }*/
-
+    Plotly.newPlot('map-tree-age', data, layout);
+    
 });
 
-function displayPrediction(data) {
-    const tableBody = document.getElementById('table-body-pred-tech');
 
-    // Créer une nouvelle ligne de tableau
-    const newRow = document.createElement('tr');
-
-    // Ajouter les cellules à la ligne
-
-    newRow.appendChild(createHeaderCell(data.age_knn));
-    newRow.appendChild(createCell(data.age_svm));
-    newRow.appendChild(createCell(data.age_rf));
-    newRow.appendChild(createCell(data.age_mlp));
-
-    // Ajouter la ligne au corps du tableau
-    tableBody.appendChild(newRow);
-}
-
-/*
-
-var data = [{
-    type:'scattermapbox',
-    lat:['45.5017'],
-    lon:['-73.5673'],
-    mode:'markers',
-    marker: {
-      size:14
-    },
-    text:['Montreal']
-  }]
-  
-  var layout = {
-    autosize: true,
-    hovermode:'closest',
-    mapbox: {
-      bearing:0,
-      center: {
-        lat:45,
-        lon:-73
-      },
-      pitch:0,
-      zoom:5
-    },
-  }
-  
-  Plotly.setPlotConfig({
-    mapboxAccessToken: "your access token"
-  })
-  
-  Plotly.newPlot('myDiv', data, layout)
-  */

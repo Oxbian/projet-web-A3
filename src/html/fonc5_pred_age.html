@@ -23,11 +23,10 @@
 	<script src="https://d3js.org/d3.v5.min.js" defer></script>
 	<script src='../js/ajax.js' defer></script>
 	<script src='../js/display_age_pred.js' defer></script>
+	<script src='../js/display_cluster_pred.js' defer></script>
 
 	<!-- Style pour la carte -->
 	<link href='https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css' rel='stylesheet' />
-	<link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
-	<link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -105,9 +104,9 @@
 				<thead>
 					<tr>
 						<th scope="col">Méthode knn</th>
-						<th scope="col">Méthode </th>
-						<th scope="col">Méthode</th>
-						<th scope="col">Méthode</th>
+						<th scope="col">Méthode svm</th>
+						<th scope="col">Méthode rf</th>
+						<th scope="col">Méthode mlp</th>
 					</tr>
 				</thead>
 				<tbody id="table-body-pred-tech">
@@ -123,8 +122,11 @@
 
 			<div class="d-flex justify-content-around button-map">
 				<button type="button" class="btn-one-pred">Prédiction de l'âge</button>
-				<button type="button" class="btn-two-pred">Prédiction du risque de tempête</button>
+				<button type="button" class="btn-two-pred">Prédiction du risque de déracinement lors d'une tempête</button>
 			</div>
+
+			<br><section id="map-tree-age"></section><br>
+
 		</div>
 	</main>
 
