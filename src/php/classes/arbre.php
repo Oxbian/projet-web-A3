@@ -25,7 +25,7 @@ class Arbre extends Database
 	/**
 	 * Fonction pour récupérer tous les arbres
 	 *
-	 * @return Liste Liste contenant les informatiosn de tous les arbres
+	 * @return Array Liste contenant les informatiosn de tous les arbres
 	 */
 	public function dbGetArbres()
 	{
@@ -131,19 +131,22 @@ class Arbre extends Database
 	/**
 	 * Fonction pour récupérer la liste dans arbres divisé en clusters
 	 *
-	 * @return Liste Liste des arbres avec leurs informations et leur cluster
+	 * @return Array Liste des arbres avec leurs informations et leur cluster
 	 */
 	public function dbGetClusters()
 	{
 		$arbre_data = $this->dbGetArbres();
-		$arbre_clustered = [];
+		$arbre_count = count($arbre_data);
 
-		for ($i = 0; $i <= 100; $i++) {
-			$arbre_data[$i]['cluster'] = exec("../../.venv/bin/python3 ../../scripts/clusters.py -lon 0 -lat 0");
-			array_push($arbre_clustered, $arbre_data[$i]);
+		$clusters = json_decode(exec("../../.venv/bin/python3 ../../scripts/clusters.py " . $arbre_count));
+
+		$nb_cluster = count($clusters);
+
+		for ($i = 0; $i < $nb_cluster; $i++) {
+			$arbre_data[$i]['cluster'] = $clusters[$i];
 		}
 
-		return $arbre_clustered;
+		return $arbre_data;
 	}
 
 	/**
