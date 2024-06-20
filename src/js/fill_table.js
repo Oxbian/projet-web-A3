@@ -49,19 +49,6 @@ function createHeaderCell(text) {
     return cell;
 }
 
-function createRadioCell(id) {
-    document.createElement('td');
-    const input = document.createElement('input')
-
-    input.setAttribute('id', id);
-    input.setAttribute('class', 'form-check-input');
-    input.setAttribute('type', 'radio');
-    input.setAttribute('name', 'pred');
-    input.setAttribute('value', 'pred');
-
-    return input;
-}
-
 function createPredictionCell(id) {
     const cell = document.createElement('td');
     const radioInput = document.createElement('input');
@@ -70,31 +57,56 @@ function createPredictionCell(id) {
     radioInput.setAttribute('name', 'pred');
     radioInput.setAttribute('value', id);
 
-    // Handle radio input selection
-    radioInput.addEventListener('change', function() {
-        if (this.checked) {
-            getPrediction(id);
-        }
-    });
-
     cell.appendChild(radioInput);
     return cell;
 }
 
-
 function getPrediction(id) {
-    sendHttpRequest('GET', '../php/request.php/arbre/pred-age/', id, function (error, data) {
-        if (error) {
-            console.error('Erreur lors de la récupération de la prédiction:', error);
-        } else {
-            console.log(data); 
-            localStorage.setItem('predictionResult', JSON.stringify(data));
-            window.location.href = '../html/fonc5_pred_age.html';
-        }
+    const predAgeRequest = new Promise((resolve, reject) => {
+        sendHttpRequest('GET', `../php/request.php/arbre/pred-age/`, id, function (error, data) {
+            if (error) {
+                console.log('Erreur lors de la récupération de la prédiction de l\'âge:', error);
+            } else {
+                localStorage.setItem('predictionAge', JSON.stringify(data));
+                resolve();
+            }
+        });
     });
+
+    const predRiskRequest = new Promise((resolve, reject) => {
+        sendHttpRequest('GET', `../php/request.php/arbre/pred-deracinnement/`, id, function (error, data) {
+            if (error) {
+                console.log('Erreur lors de la récupération de la prédiction du risque de déracinement:', error);
+            } else {
+                localStorage.setItem('predictionRisk', JSON.stringify(data));
+                resolve();
+            }
+        });
+    });
+
+    Promise.all([predAgeRequest, predRiskRequest])
+        .then(() => {
+            window.location.href = '../html/fonc5_pred_age.html';
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
     fillTable();
+    const btnOne = document.querySelector('.btn-one');
+
+    btnOne.addEventListener('click', function () {
+        const selectedRadio = document.querySelector('input[name="pred"]:checked');
+
+        if (selectedRadio) {
+            const id = selectedRadio.value;
+            getPrediction(id);
+        } else {
+            alert('Veuillez sélectionner un arbre pour la prédiction.');
+        }
+    });
 });
