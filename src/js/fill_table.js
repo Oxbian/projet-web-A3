@@ -110,4 +110,5 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Veuillez sélectionner un arbre pour la prédiction.');
         }
     });
+
 });
