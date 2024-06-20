@@ -5,7 +5,7 @@ function sendHttpRequest(method, url, data, callback) {
 
 	xhr.open(method, url, true);
 	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-	xhr.setRequestHeader('Authorization', 'Bearer ' + Cookies.get('token'));
+	// xhr.setRequestHeader('Authorization', 'Bearer ' + Cookies.get('token'));
 
 
 	// Définition de la fonction de rappel pour traiter la réponse
