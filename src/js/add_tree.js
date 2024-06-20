@@ -69,18 +69,31 @@ document.addEventListener('DOMContentLoaded', function () {
 			});
 		}
 	});
+
+	sendHttpRequest('GET', '../php/request.php/espece', null, function (error, data) {
+		if (error) {
+			httpErrors(error);
+		} else {
+			let etatSelect = document.getElementById("espece");
+			data.forEach(etat => {
+				const option = document.createElement('option');
+				option.value = etat.fk_espece;
+				option.text = etat.fk_espece;
+				etatSelect.appendChild(option);
+			});
+		}
+	});
+
+
 	document.getElementById('addForm').addEventListener('submit', function (event) {
 		event.preventDefault(); // Empêche la soumission par défaut du formulaire
 
 		// Récupère les données du formulaire
 		const formData = new FormData(event.target);
-		const data = {};
-		formData.forEach((value, key) => {
-			data[key] = value;
-		});
+		const urlEncodedData = new URLSearchParams(formData).toString();
 
 		// Envoie les données via une requête POST
-		sendHttpRequest('POST', '../php/request.php/arbre', data, function (error, response) { //#TODO ALBAAAAAAAAAAAAAAAAAAAAAN, LANAAAAAAAAAAAAAAAAAAAAAAA
+		sendHttpRequest('POST', '../php/request.php/arbre', urlEncodedData, function (error, response) {
 			if (error) {
 				console.error('Erreur:', error);
 			} else {

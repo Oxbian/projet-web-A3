@@ -1,19 +1,18 @@
 'use strict';
 
 function sendHttpRequest(method, url, data, callback) {
-	var xhr = new XMLHttpRequest();
+	let xhr = new XMLHttpRequest();
 
 	xhr.open(method, url, true);
+	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	xhr.setRequestHeader('Authorization', 'Bearer ' + Cookies.get('token'));
 
-	if (method === 'POST' || method === 'PUT') {
-		xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-	}
 
 	// Définition de la fonction de rappel pour traiter la réponse
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState === 4) {
 			if (xhr.status >= 200 && xhr.status < 300) {
-				var response = JSON.parse(xhr.responseText);
+				const response = JSON.parse(xhr.responseText);
 				callback(null, response);
 			} else {
 				callback(xhr.statusText, null); //#TODO responses ?
@@ -22,12 +21,7 @@ function sendHttpRequest(method, url, data, callback) {
 	};
 
 	// Envoi de la requête
-	if (method === 'POST' || method === 'PUT') {
-		xhr.send(JSON.stringify(data));
-	} else {
-		xhr.send();
-	}
-	//xhr.send(JSON.stringify(data));
+	xhr.send(data);
 }
 
 function httpErrors(errorCode) {

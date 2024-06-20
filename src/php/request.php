@@ -52,11 +52,12 @@ if ($requestRessource == "user") {
 				// Vérification de l'existence de l'utilisateur
 				if ($db->dbCheckUser($username, $password)) {
 					// Création du token + ajout dans la BDD
-					$token = base64_encode(openssl_random_pseudo_bytes(20));
+					$token = base64_encode(openssl_random_pseudo_bytes(12));
 					$data = $db->dbAddToken($username, $token);
-					checkData($data, 200, 404);
-				} else
+					checkData($token, 200, 404);
+				} else {
 					sendError(401);
+				}
 			} else {
 				sendError(400);
 			}
@@ -152,18 +153,20 @@ if ($requestRessource == "arbre") {
 					&& isset($_POST['haut_tronc']) && isset($_POST['tronc_diam']) && isset($_POST['prec_estim'])
 					&& isset($_POST['nbr_diag']) && isset($_POST['remarquable']) && isset($_POST['fk_espece'])
 					&& isset($_POST['fk_port']) && isset($_POST['fk_pied']) && isset($_POST['fk_secteur'])
-					&& isset($_POST['fk_etat']) && isset($_POST['fk_stadedev']) && isset($_POST['username']),
+					&& isset($_POST['fk_etat']) && isset($_POST['fk_stadedev']),
 				400
 			))
 				break;
 
 			// Vérificatin si l'arbre existe déjà
-			if ($db->dbCheckArbre($_POST['longitude'], $_POST['latitude'], $_POST['haut_tot'], $_POST['haut_tronc'], $_POST['tronc_diam'], $_POST['prec_estim'], $_POST['nbr_diag'], $_POST['remarquable'], $_POST['fk_espece'], $_POST['fk_port'], $_POST['fk_pied'], $_POST['fk_secteur'], $_POST['fk_etat'], $_POST['fk_stadedev'], $_POST['username'])) {
+			// TODO: fix bug ici
+			if ($db->dbCheckArbre($_POST['longitude'], $_POST['latitude'], $_POST['haut_tot'], $_POST['haut_tronc'], $_POST['tronc_diam'], $_POST['prec_estim'], $_POST['nbr_diag'], $_POST['remarquable'], $_POST['fk_espece'], $_POST['fk_port'], $_POST['fk_pied'], $_POST['fk_secteur'], $_POST['fk_etat'], $_POST['fk_stadedev'], $login)) {
 				sendError(409);
 				break;
 			}
 
-			$data = $db->dbAddArbre($_POST['longitude'], $_POST['latitude'], $_POST['haut_tot'], $_POST['haut_tronc'], $_POST['tronc_diam'], $_POST['prec_estim'], $_POST['nbr_diag'], $_POST['remarquable'], $_POST['fk_espece'], $_POST['fk_port'], $_POST['fk_pied'], $_POST['fk_secteur'], $_POST['fk_etat'], $_POST['fk_stadedev'], $_POST['username']);
+			$data = $db->dbAddArbre($_POST['longitude'], $_POST['latitude'], $_POST['haut_tot'], $_POST['haut_tronc'], $_POST['tronc_diam'], $_POST['prec_estim'], $_POST['nbr_diag'], $_POST['remarquable'], $_POST['fk_espece'], $_POST['fk_port'], $_POST['fk_pied'], $_POST['fk_secteur'], $_POST['fk_etat'], $_POST['fk_stadedev'], $login);
+			print_r("ok:" . $data);
 			sendJsonData($data, 201);
 			break;
 
