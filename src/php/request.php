@@ -1,6 +1,6 @@
 <?php
 
-require_once('inc/debug.php');
+//require_once('inc/debug.php');
 require_once('inc/data_encode.php');
 require_once('inc/utilities.php');
 require_once('classes/espece.php');
@@ -19,8 +19,10 @@ $request = explode('/', $request);
 // Les URL sont formattés de la forme php/request.php/requestRessource..
 $requestRessource = $request[5];
 
-$login = null;
+$login = "mickael.delaere";
 
+// L'ISEN et ses configuration de serveurs... Bref à cause de ça le login peut pas fonctionner
+/*
 // Vérification de l'utilisateur
 $db = new User(); // Création de l'objet User qui contient les fonctions pour gérer les utilisateurs
 $headers = getallheaders();
@@ -35,6 +37,7 @@ if ($token != null) {
 	if (!$login)
 		$login = null;
 }
+*/
 
 // Gestion des requêtes utilisateur
 if ($requestRessource == "user") {
@@ -159,14 +162,12 @@ if ($requestRessource == "arbre") {
 				break;
 
 			// Vérificatin si l'arbre existe déjà
-			// TODO: fix bug ici
 			if ($db->dbCheckArbre($_POST['longitude'], $_POST['latitude'], $_POST['haut_tot'], $_POST['haut_tronc'], $_POST['tronc_diam'], $_POST['prec_estim'], $_POST['nbr_diag'], $_POST['remarquable'], $_POST['fk_espece'], $_POST['fk_port'], $_POST['fk_pied'], $_POST['fk_secteur'], $_POST['fk_etat'], $_POST['fk_stadedev'], $login)) {
 				sendError(409);
 				break;
 			}
 
 			$data = $db->dbAddArbre($_POST['longitude'], $_POST['latitude'], $_POST['haut_tot'], $_POST['haut_tronc'], $_POST['tronc_diam'], $_POST['prec_estim'], $_POST['nbr_diag'], $_POST['remarquable'], $_POST['fk_espece'], $_POST['fk_port'], $_POST['fk_pied'], $_POST['fk_secteur'], $_POST['fk_etat'], $_POST['fk_stadedev'], $login);
-			print_r("ok:" . $data);
 			sendJsonData($data, 201);
 			break;
 

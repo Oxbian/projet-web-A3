@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		xhr.onload = () => {
 			switch (xhr.status) {
 				case 200:
-					Cookies.set('token', JSON.parse(responseText));
+					Cookies.set('token', JSON.parse(xhr.responseText));
 					console.log('Authentification réussite !');
 					document.location.href = 'index.html';
 					break;

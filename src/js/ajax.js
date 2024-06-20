@@ -11,11 +11,11 @@ function sendHttpRequest(method, url, data, callback) {
 	// Définition de la fonction de rappel pour traiter la réponse
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState === 4) {
-			if (xhr.status >= 200 && xhr.status < 300) {
+			if (xhr.status == 200) {
 				const response = JSON.parse(xhr.responseText);
 				callback(null, response);
 			} else {
-				callback(xhr.statusText, null); //#TODO responses ?
+				callback(xhr.statusText, null);
 			}
 		}
 	};
