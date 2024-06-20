@@ -63,19 +63,19 @@ function createPredictionCell(id) {
 
 function getPrediction(id) {
     const predAgeRequest = new Promise((resolve, reject) => {
-        sendHttpRequest('GET', `../php/request.php/arbre/pred-age/`, id, function (error, data) {
+        sendHttpRequest('GET', `../php/request.php/arbre/pred-age/${id}`, null, function (error, data) {
             if (error) {
                 reject('Erreur lors de la récupération de la prédiction de l\'âge:', error);
             } else {
                 console.log(data)
-                //localStorage.setItem('predictionAge', JSON.stringify(data));
+                localStorage.setItem('predictionAge', JSON.stringify(data));
                 resolve();
             }
         });
     });
 
     const predRiskRequest = new Promise((resolve, reject) => {
-        sendHttpRequest('GET', `../php/request.php/arbre/pred-deracinnement/`, id, function (error, data) {
+        sendHttpRequest('GET', `../php/request.php/arbre/pred-deracinnement/${id}`, null, function (error, data) {
             if (error) {
                 reject('Erreur lors de la récupération de la prédiction du risque de déracinement:', error);
             } else {
@@ -87,7 +87,7 @@ function getPrediction(id) {
 
     Promise.all([predAgeRequest, predRiskRequest])
         .then(() => {
-            //window.location.href = '../html/fonc5_pred_age.html';
+            window.location.href = '../html/fonc5_pred_age.html';
         })
         .catch(error => {
             console.error(error);

@@ -78,11 +78,11 @@ footer {
     color: black;
 }
 
-.btn-one{
+.btn-one, .btn-one-pred{
     background-color: #E3CD8B;
 }
 
-.btn-two{
+.btn-two, .btn-two-pred{
     background-color: #F0BE86;
 }
 
