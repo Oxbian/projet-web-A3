@@ -1,5 +1,10 @@
 'use strict';
 
+// --- fillTable --------------------------------------------------------------
+// Remplis le tableau avec l'intégralité des données de la base 
+// \no param
+// \no return   
+
 function fillTable() {
 
     // Requête HTTP pour récupérer les données des arbres
@@ -36,30 +41,11 @@ function fillTable() {
     });
 }
 
-function createCell(text) {
-    const cell = document.createElement('td');
-    cell.textContent = text;
-    return cell;
-}
 
-function createHeaderCell(text) {
-    const cell = document.createElement('th');
-    cell.textContent = text;
-    cell.setAttribute('scope', 'row');
-    return cell;
-}
-
-function createPredictionCell(id) {
-    const cell = document.createElement('td');
-    const radioInput = document.createElement('input');
-    radioInput.setAttribute('type', 'radio');
-    radioInput.setAttribute('id', `pred_${id}`);
-    radioInput.setAttribute('name', 'pred');
-    radioInput.setAttribute('value', id);
-
-    cell.appendChild(radioInput);
-    return cell;
-}
+// --- fillTable --------------------------------------------------------------
+// Remplis le tableau avec l'intégralité des données de la base 
+// \param id (int), l'id de l'arbre dont on veut prédire l'âge
+// \no return  
 
 function getPrediction(id) {
     const predAgeRequest = new Promise((resolve, reject) => {

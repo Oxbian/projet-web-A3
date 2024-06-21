@@ -1,12 +1,19 @@
 'use strict';
 
+// --- sendHttpRequest --------------------------------------------------------------
+// Récupère les données (architecture REST) de la base de données 
+// \param method (str), Méthode de requête (GET, POST, PUT, DELETE)
+// \param url (str), chemin d'accès aux données
+// \param data (json array), variable dans laquelle sera stocké le résultat de la requête
+// \param callback (fonction), fonction appelée lors de la requête afin de sélectionner les données intéressantes
+// \no return
+
 function sendHttpRequest(method, url, data, callback) {
 	let xhr = new XMLHttpRequest();
 
 	xhr.open(method, url, true);
 	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	// xhr.setRequestHeader('Authorization', 'Bearer ' + Cookies.get('token'));
-
 
 	// Définition de la fonction de rappel pour traiter la réponse
 	xhr.onreadystatechange = function () {
@@ -23,6 +30,11 @@ function sendHttpRequest(method, url, data, callback) {
 	// Envoi de la requête
 	xhr.send(data);
 }
+
+// --- httpErrors --------------------------------------------------------------
+// Fonction de débogage qui affiche les codes d'erreur rencontrée
+// \param errorCode (int), code d'erreur http
+// \no return
 
 function httpErrors(errorCode) {
 	let messages = {

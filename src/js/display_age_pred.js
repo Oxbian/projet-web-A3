@@ -1,17 +1,9 @@
 'use strict';
 
-function createCell(text) {
-    const cell = document.createElement('td');
-    cell.textContent = text;
-    return cell;
-}
-
-function createHeaderCell(text) {
-    const cell = document.createElement('th');
-    cell.textContent = text;
-    cell.setAttribute('scope', 'row');
-    return cell;
-}
+// --- displayPredictionAge --------------------------------------------------------------
+// Affiicher dans un tableau les prédictions de l'âge selon la méthode
+// \param data (json array), variable dans laquelle est stocké l'ensemble des données
+// \no return   
 
 function displayPredictionAge(data) {
     const tableBodyPred = document.getElementById('table-body-pred-tech');
@@ -21,15 +13,20 @@ function displayPredictionAge(data) {
     const newRow = document.createElement('tr');
 
     // Ajouter les cellules à la ligne
-
     newRow.appendChild(createHeaderCell(data.age_knn));
     newRow.appendChild(createCell(data.age_svm));
     newRow.appendChild(createCell(data.age_rf));
     newRow.appendChild(createCell(data.age_mlp));
 
-    // Ajouter la ligne au corps du tableau
+    // Ajouter la ligne au tableau
     tableBodyPred.appendChild(newRow);
 }
+
+
+// --- displayPredictionRisk --------------------------------------------------------------
+// Affiicher dans un tableau les prédictions du risque de déracinement selon la méthode
+// \param data (json array), variable dans laquelle est stocké l'ensemble des données
+// \no return   
 
 function displayPredictionRisk(data) {
     const tableBodyPred = document.getElementById('table-body-pred-tech');
@@ -39,49 +36,49 @@ function displayPredictionRisk(data) {
     const newRow = document.createElement('tr');
 
     // Ajouter les cellules à la ligne
-
     newRow.appendChild(createHeaderCell(data.deracinnement_knn));
     newRow.appendChild(createCell(data.deracinnement_svm));
     newRow.appendChild(createCell(data.deracinnement_rf));
     newRow.appendChild(createCell(data.deracinnement_mlp));
 
-    // Ajouter la ligne au corps du tableau
+    // Ajouter la ligne au tableau
     tableBodyPred.appendChild(newRow);
 }
+
+
+// --- displayArbre --------------------------------------------------------------
+// Affiicher dans un tableau l'ensemble des données d'un arbre
+// \param arbre (json array), variable dans laquelle est stocké l'ensemble des arbres
+// \no return   
 
 function displayArbre(arbre) {
     const tableBody = document.getElementById('table-body-pred');
     tableBody.innerHTML = ''; // Vider le tableau existant
 
-        // Créer une nouvelle ligne de tableau
-        const newRow = document.createElement('tr');
+    // Créer une nouvelle ligne de tableau
+    const newRow = document.createElement('tr');
 
-        // Ajouter les cellules à la ligne
+    // Ajouter les cellules à la ligne
+    newRow.appendChild(createHeaderCell(arbre.id));
+    newRow.appendChild(createCell(arbre.fk_espece));
+    newRow.appendChild(createCell(arbre.haut_tot));
+    newRow.appendChild(createCell(arbre.haut_tronc));
+    newRow.appendChild(createCell(arbre.tronc_diam));
+    newRow.appendChild(createCell(arbre.latitude));
+    newRow.appendChild(createCell(arbre.longitude));
+    newRow.appendChild(createCell(arbre.fk_etat));
+    newRow.appendChild(createCell(arbre.fk_stadedev));
+    newRow.appendChild(createCell(arbre.fk_port));
+    newRow.appendChild(createCell(arbre.fk_pied));
 
-        newRow.appendChild(createHeaderCell(arbre.id));
-        newRow.appendChild(createCell(arbre.fk_espece));
-        newRow.appendChild(createCell(arbre.haut_tot));
-        newRow.appendChild(createCell(arbre.haut_tronc));
-        newRow.appendChild(createCell(arbre.tronc_diam));
-        newRow.appendChild(createCell(arbre.latitude));
-        newRow.appendChild(createCell(arbre.longitude));
-        newRow.appendChild(createCell(arbre.fk_etat));
-        newRow.appendChild(createCell(arbre.fk_stadedev));
-        newRow.appendChild(createCell(arbre.fk_port));
-        newRow.appendChild(createCell(arbre.fk_pied));
-
-        // Ajouter la ligne au corps du tableau
-        tableBody.appendChild(newRow);
+    // Ajouter la ligne au tableau
+    tableBody.appendChild(newRow);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
 
     const predictionAge = JSON.parse(localStorage.getItem('predictionAge'));
     const predictionRisk = JSON.parse(localStorage.getItem('predictionRisk'));
-
-    console.log(predictionAge)
-    console.log(predictionRisk)
-
 
     const btnOne = document.querySelector('.btn-one-pred');
     const btnTwo = document.querySelector('.btn-two-pred');
@@ -105,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
+    // Affichage de la map
     var latitude = [predictionAge.latitude];    //Même données pour age et risk
     var longitude = [predictionAge.longitude];
     var secteur = predictionAge.fk_secteur;
@@ -124,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         text: texts,
         hoverinfo: 'text'
-      }]
+    }]
 
     var layout = {
         title: 'Arbre dont l\'âge est prédit',
@@ -161,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     Plotly.newPlot('map-tree-age', data, layout);
-    
+
 });
 
 
