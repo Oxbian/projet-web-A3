@@ -42,7 +42,7 @@ function fillTable() {
 }
 
 
-// --- fillTable --------------------------------------------------------------
+// --- getPrédiction --------------------------------------------------------------
 // Remplis le tableau avec l'intégralité des données de la base 
 // \param id (int), l'id de l'arbre dont on veut prédire l'âge
 // \no return  

@@ -15,18 +15,20 @@
 
 	<!-- Scripts pour la carte -->
 	<script src="https://cdn.plot.ly/plotly-latest.min.js" defer></script>
-
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js' defer></script>
 	<script src='https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js' defer></script>
+	<script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js" defer></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js" defer></script>
-
-	<!-- Style pour la carte -->
-	<link href='https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css' rel='stylesheet' />
-
+	<script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js" defer></script>
+	<script src="https://d3js.org/d3.v5.min.js" defer></script>
 	<script src='../js/ajax.js' defer></script>
 	<script src='../js/unpack.js' defer></script>
 	<script src='../js/create_cell.js' defer></script>
 	<script src='../js/fill_table.js' defer></script>
 	<script src='../js/map.js' defer></script>
+
+	<!-- Style pour la carte -->
+	<link href='https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css' rel='stylesheet' />
 
 	<!-- Cookies -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"
@@ -47,11 +49,11 @@
 				</button>
 				<div class="collapse navbar-collapse" id="nav-content">
 					<ul id="menu-left" class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item">
-							<a id="attend" class="nav-link" href="index.html">Accueil</a>
+						<li class="nav-item" >
+							<a  id="attend" class="nav-link" href="index.html">Accueil</a>
 						</li>
 						<li class="nav-item">
-							<a id="attend" class="nav-link" href="fonc2_form.html">Nouvel arbre</a>
+							<a  id="attend" class="nav-link" href="fonc2_form.html">Nouvel arbre</a>
 						</li>
 						<li class="nav-item">
 							<a id="actuel" class="nav-link" href="fonc3_map.html">Visualisation</a>
@@ -59,7 +61,7 @@
 					</ul>
 					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a id="attend" class="nav-link" href="login.html">Connexion</a>
+							<a   id="attend" class="nav-link" href="login.html">Connexion</a>
 						</li>
 					</ul>
 				</div>
@@ -99,13 +101,13 @@
 
 		<br>
 
-		<div class="d-flex justify-content-around button-map">
-			<button type="button" class="btn-one">Prédiction de l'âge et du risque de
-				déracinement lors de tempête</button>
-			<button type="button" class="btn-two"><a href="../html/fonc4_pred_clusters.html">Prédiction des clusters des
-					arbres</a></button>
-		</div>
-		<br>
+        <div class="d-flex justify-content-around button-map">
+            <button type="button" class="btn-one">Prédiction de l'âge et du risque de
+                    déracinement lors de tempête</button>
+            <button type="button" class="btn-two"><a href="../html/fonc4_pred_clusters.html">Prédiction des clusters des
+                    arbres</a></button>
+        </div>
+        <br>
 
 		<h2>Carte des arbres</h2>
 
@@ -113,19 +115,19 @@
 			<div class="col-md-4">
 				<select id="espece" class="form-select" aria-label="espece">
 					<option selected>Filtrer selon l'espèce</option>
-				</select>
+				  </select>
 			</div>
 
 			<div class="col-md-4">
 				<select id="etat" class="form-select" aria-label="etat">
 					<option selected>Filtrer selon l'état</option>
-				</select>
+				  </select>
 			</div>
 
 			<div class="col-md-4">
 				<select id="stade" class="form-select" aria-label="stade">
 					<option selected>Filtrer selon le stade de développement</option>
-				</select>
+				  </select>
 			</div>
 		</div>
 		<br>
