@@ -21,7 +21,7 @@ tags:
   - name: espece
     description: Espèce de l'arbre
 paths:
-  /php/request.php/user/login:
+  /projet-web-a3/src/php/request.php/user/login:
     get:
       tags:
         - user
@@ -33,7 +33,7 @@ paths:
           description: Mauvaise requête
         '404':
           description: Utilisateur non trouvé
-  /php/request.php/user:
+  /projet-web-a3/src/php/request.php/user:
     post:
       tags:
         - user
@@ -80,7 +80,7 @@ paths:
           description: Mauvaise requête
         '401':
           description: Non authorisé
-  /php/request.php/arbre:
+  /projet-web-a3/src/php/request.php/arbre:
     get:
       tags:
         - arbre
@@ -195,7 +195,7 @@ paths:
           description: Non authorisé
         '409':
           description: Arbre déjà existant
-  /php/request.php/arbre/{id}:
+  /projet-web-a3/src/php/request.php/arbre/{id}:
     get:
       tags:
         - arbre
@@ -212,7 +212,7 @@ paths:
           description: Requête réussite
         '400':
           description: Mauvaise requête
-  /php/request.php/arbre/cluster:
+  /projet-web-a3/src/php/request.php/arbre/cluster:
     get:
       tags:
         - arbre
@@ -239,7 +239,7 @@ paths:
           description: Requête réussite
         '400':
           description: Mauvaise requête
-  /php/request.php/arbre/pred-deracinnement/{id}:
+  /projet-web-a3/src/php/request.php/arbre/pred-deracinnement/{id}:
     get:
       tags:
         - arbre
@@ -256,7 +256,7 @@ paths:
           description: Requête réussite
         '400':
           description: Mauvaise requête
-  /php/request.php/stadedev:
+  /projet-web-a3/src/php/request.php/stadedev:
     get:
       tags:
         - stadedev
@@ -266,7 +266,7 @@ paths:
           description: Requête réussite
         '404':
           description: Éléments non trouvés
-  /php/request.php/etat:
+  /projet-web-a3/src/php/request.php/etat:
     get:
       tags:
         - etat
@@ -276,7 +276,7 @@ paths:
           description: Requête réussite
         '404':
           description: Éléments non trouvés
-  /php/request.php/secteur:
+  /projet-web-a3/src/php/request.php/secteur:
     get:
       tags:
         - secteur
@@ -286,7 +286,7 @@ paths:
           description: Requête réussite
         '404':
           description: Éléments non trouvés
-  /php/request.php/pied:
+  /projet-web-a3/src/php/request.php/pied:
     get:
       tags:
         - type_pied
@@ -296,7 +296,7 @@ paths:
           description: Requête réussite
         '404':
           description: Éléments non trouvés
-  /php/request.php/port:
+  /projet-web-a3/src/php/request.php/port:
     get:
       tags:
         - type_port
@@ -306,7 +306,7 @@ paths:
           description: Requête réussite
         '404':
           description: Éléments non trouvés
-  /php/request.php/espece:
+  /projet-web-a3/src/php/request.php/espece:
     get:
       tags:
         - espece
